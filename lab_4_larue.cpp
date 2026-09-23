@@ -1,21 +1,52 @@
-// lab_4_larue.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include <iomanip>
+#include <string>
+using namespace std;
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    string foodName;
+    char itemCode;
+    int quantity;
+    double unitPrice;
+    char member;
 
+    cout << "Enter food name: ";
+    getline(cin, foodName);
+
+    cout << "Enter item code: ";
+    cin >> itemCode;
+
+    cout << "Enter quantity: ";
+    cin >> quantity;
+
+    cout << "Enter unit price: $";
+    cin >> unitPrice;
+
+    cout << "Are you a member? (y/n): ";
+    cin >> member;
+
+    double subtotal = quantity * unitPrice;
+
+    cout << "\n========== RECEIPT ==========\n";
+
+    cout << left << setw(15) << "Food:"
+        << right << setw(15) << foodName << endl;
+
+    cout << left << setw(15) << "Item Code:"
+        << right << setw(15) << itemCode << endl;
+
+    cout << left << setw(15) << "Quantity:"
+        << right << setw(15) << quantity << endl;
+
+    cout << left << setw(15) << "Unit Price:"
+        << right << setw(15) << fixed << setprecision(2)
+        << unitPrice << endl;
+
+    cout << left << setw(15) << "Subtotal:"
+        << right << setw(15) << subtotal << endl;
+
+    cout << "=============================\n";
+
+    return 0;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
