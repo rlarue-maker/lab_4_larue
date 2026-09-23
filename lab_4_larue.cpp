@@ -28,6 +28,17 @@ int main()
 
     double subtotal = quantity * unitPrice;
 
+    double discount = 0.0;
+    string cashiernotes;
+    if (member == 'y' or member == 'Y')
+    {
+        discount = subtotal * 0.10;
+    }
+    cin.ignore();
+    cout << "any notes?: ";
+    getline(cin, cashiernotes);
+
+
     cout << "\n========== RECEIPT ==========\n";
 
     cout << left << setw(15) << "Food:"
@@ -47,6 +58,9 @@ int main()
         << right << setw(15) << subtotal << endl;
 
     cout << "=============================\n";
+    
+    cout << left << setw(6) << "food" <<setw(10) << "itemCode"<<setw(10)<< "unitPrice"<< right<<setw(8)<<"units" << endl;
+    cout << left << setw(6) << foodName << setw(10) << itemCode << setw(10) << unitPrice<< setw(8)<<quantity << endl;
 
     return 0;
 }
