@@ -50,3 +50,5 @@ int main()
 
     return 0;
 }
+
+//feat: Add basic receipt output and input formatting"
