@@ -102,8 +102,51 @@ int main()
 
     cout << "Any notes?: ";
     getline(cin, cashiernotes);
+    double tax1Rate = 0.065;
+    double tax2Rate = 0.005;
+    double tax3Rate = 0.02125;
+
+
+    double tax1 = subtotal * tax1Rate;
+    double tax2 = subtotal * tax2Rate;
+    double tax3 = subtotal * tax3Rate;
+    double totalTax = tax1 + tax2 + tax3;
+    double total = subtotal + totalTax;
+
+
+    int tipChoice = 0;
+    double tipRate = 0.0;
+    double tip = 0.0;
+
+    cout << "\nTip options (applied to pre-tax total):\n";
+    cout << "1. 15%\n";
+    cout << "2. 20%\n";
+    cout << "3. 25%\n";
+    cout << "4. Custom percentage\n";
+    cout << "Choose tip option (1-4): ";
+    cin >> tipChoice;
+
+    if (tipChoice == 1)
+        tipRate = 0.15;
+    else if (tipChoice == 2)
+        tipRate = 0.20;
+    else if (tipChoice == 3)
+        tipRate = 0.25;
+    else if (tipChoice == 4)
+    {
+        cout << "Enter custom tip percentage (ex: 12.5 for 12.5%): ";
+        double customPct = 0.0;
+        cin >> customPct;
+        tipRate = customPct / 100.0;
+    }
+
+    tip = subtotal * tipRate;
+    double grandTotal = total + tip;
 
     cout << "\n           RECEIPT            \n";
+
+
+    cout << fixed << setprecision(2);
 
     cout << left << setw(15) << "Food:"
         << right << setw(15) << foodName << endl;
@@ -115,11 +158,34 @@ int main()
         << right << setw(15) << quantity << endl;
 
     cout << left << setw(15) << "Unit Price:"
-        << right << setw(15) << fixed << setprecision(2)
-        << unitPrice << endl;
+        << right << setw(15) << unitPrice << endl;
 
     cout << left << setw(15) << "Subtotal:"
         << right << setw(15) << subtotal << endl;
+
+    cout << left << setw(15) << "Discount:"
+        << right << setw(15) << discount << endl;
+
+    cout << left << setw(15) << "Ar state Tax (6.5%):"
+        << right << setw(15) << tax1 << endl;
+
+    cout << left << setw(15) << "Faulkner County Tax (0.5%):"
+        << right << setw(15) << tax2 << endl;
+
+    cout << left << setw(15) << "Conway mun. Tax (2.125%):"
+        << right << setw(15) << tax3 << endl;
+
+    cout << left << setw(15) << "Total Tax:"
+        << right << setw(15) << totalTax << endl;
+
+    cout << left << setw(15) << "Total (before tip):"
+        << right << setw(15) << total << endl;
+
+    cout << left << setw(15) << "Tip:"
+        << right << setw(15) << tip << endl;
+
+    cout << left << setw(15) << "Grand Total:"
+        << right << setw(15) << grandTotal << endl;
 
     return 0;
 }
