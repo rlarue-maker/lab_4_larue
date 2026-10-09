@@ -1,6 +1,8 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <sstream>
+#include <cmath>
 using namespace std;
 
 int main()
@@ -16,11 +18,26 @@ int main()
     double orderSubtotal = 0.0;
     double itemSubtotal = 0.0;
 
+    // Accumulator to track ordered items for the receipt (name, qty, subtotal)
+    string orderDetails = "";
+
+    // Track daily totals
+    double grandTotalSales = 0.0;
+    int totalCustomers = 0;
+    char anotherCustomer = 'y';
+
     char member;
     string cashiernotes;
 
-    cout << "Enter customer name: ";
-    getline(cin, customerName);
+    // Loop to simulate an entire day's worth of customers
+    do
+    {
+        cout << "Enter customer name: ";
+        getline(cin, customerName);
+
+        // reset per-customer accumulators
+        orderSubtotal = 0.0;
+        orderDetails.clear();
 
     // Loop keeps running until customer chooses Checkout
     do
@@ -132,6 +149,15 @@ int main()
 
         orderSubtotal = orderSubtotal + itemSubtotal;
 
+        // Build a receipt line for this item and append to the accumulator.
+        // Use a string stream so monetary values are formatted to 2 decimal places.
+        // Format: <name> x<quantity>  $<itemSubtotal>\n
+        {
+            ostringstream oss;
+            oss << fixed << setprecision(2) << itemSubtotal;
+            orderDetails += foodName + " x" + to_string(quantity) + "  $" + oss.str() + "\n";
+        }
+
         cout << "Item added to order." << endl;
 
     } while (itemChoice != 'E' && itemChoice != 'e');
@@ -206,7 +232,11 @@ int main()
 
     cout << fixed << setprecision(2);
 
-    cout << left << setw(25) << "Order Subtotal:"
+    
+    cout << "\nItems:\n";
+    cout << orderDetails;
+
+    cout << left << setw(25) << "Order Subtotal:" 
         << right << setw(15) << orderSubtotal << endl;
 
     cout << left << setw(25) << "Discount:"
@@ -234,6 +264,27 @@ int main()
         << right << setw(15) << grandTotal << endl;
 
     cout << "Notes: " << cashiernotes << endl;
+
+    
+    int loyaltyPoints = static_cast<int>(floor(total / 3.0));
+    
+    cout << left << setw(25) << "Loyalty Points:" << right << setw(15) << (to_string(loyaltyPoints) + "*") << endl;
+
+    
+    grandTotalSales += grandTotal;
+    totalCustomers++;
+
+    cout << "\nAnother customer? (y/n): ";
+    cin >> anotherCustomer;
+    cin.ignore();
+
+    } while (anotherCustomer == 'y' || anotherCustomer == 'Y');
+
+    
+    cout << "\nDaily Summary:\n";
+    cout << fixed << setprecision(2);
+    cout << left << setw(25) << "Total Customers:" << right << setw(15) << totalCustomers << endl;
+    cout << left << setw(25) << "Total Sales:" << right << setw(15) << grandTotalSales << endl;
 
     return 0;
 }
